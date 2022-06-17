@@ -7,6 +7,8 @@ import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Resp
 
 export default function Dashboard() {
     const [data,setData]=useState({})
+    const [name,setName]=useState("")
+    const[searched,setSearched]=useState([])
 
     useEffect(()=>{
          axios.get("https://api.covid19api.com/summary ").then((res)=>{
@@ -15,11 +17,20 @@ export default function Dashboard() {
             console.log(err.message);
          })
     },[])
-   console.log(data);
+    let mapdata=data.Countries
+    if(searched.length){
+         mapdata=searched
+    }
   const formatXAxis = (tickItem) => {
        return new Date(tickItem).toLocaleDateString()
   }
+  const filterData=()=>{
+      let temp= [...data.Countries]
+       let filtered= temp.filter((el)=>el.Country==name)
+       setSearched([...filtered])
   
+  }
+  // console.log(data.Countries)
   return (
   <>
    <div id='navbar'>
@@ -27,8 +38,13 @@ export default function Dashboard() {
         <h5>Covid19 tracker</h5>
       </div>
       <div id='rightnav'>
-        <input type="text"  placeholder='type something...'/>
-        <button>
+        <input type="text"  placeholder='type something...' onChange={(e)=>{
+            //  let temp= [...data.Countries]
+            //  let filtered= temp.filter((el)=>el.Country==e.target.value)
+            //  setData([...filtered])
+             setName(e.target.value)
+        }}/>
+        <button onClick={filterData}>
             Search
         </button>
       </div>
@@ -68,9 +84,9 @@ export default function Dashboard() {
           <Bar dataKey="NewRecovered" stackId="b" fill="#82ca9d" />
           <Bar dataKey="NewDeaths" stackId="c" fill="#d8df05" />
         </BarChart>
-
+        <h1 id='title2'>Country wise recods</h1>
         <div id='tableBox'>
-          <h1>Country wise recods</h1>
+        
           <table>
             <tr>
                 <th>Name</th>
@@ -80,7 +96,7 @@ export default function Dashboard() {
             
             </tr>
               {
-                data.Countries? data.Countries.map((el)=>{
+               mapdata?  mapdata.map((el)=>{
                   return <>
                   <tr key={el.ID}>
                 <td>{el.Country}</td>
