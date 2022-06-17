@@ -8,15 +8,19 @@ import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Resp
 export default function Dashboard() {
     const [data,setData]=useState({})
     const [name,setName]=useState("")
+    const [found,setfound]=useState(true)
     const[searched,setSearched]=useState([])
 
     useEffect(()=>{
-         axios.get("https://api.covid19api.com/summary ").then((res)=>{
+         fetchData()
+    },[])
+    const fetchData=()=>{
+      axios.get("https://api.covid19api.com/summary ").then((res)=>{
             setData({...data, ...res.data})
          }).catch((err)=>{
             console.log(err.message);
          })
-    },[])
+    }
     let mapdata=data.Countries
     if(searched.length){
          mapdata=searched
@@ -24,10 +28,18 @@ export default function Dashboard() {
   const formatXAxis = (tickItem) => {
        return new Date(tickItem).toLocaleDateString()
   }
+   
   const filterData=()=>{
       let temp= [...data.Countries]
-       let filtered= temp.filter((el)=>el.Country==name)
-       setSearched([...filtered])
+       let filtered= temp.filter((el)=>el.Country.toLowerCase()==name)
+       if(filtered.length){
+        setSearched([...filtered])
+       
+       }
+       else{
+        setfound(false)
+        fetchData()
+       }
   
   }
   // console.log(data.Countries)
@@ -49,7 +61,7 @@ export default function Dashboard() {
         </button>
       </div>
    </div>
-
+    {!found?<p style={{textAlign:"center"}}>no result found of  {name}</p>:""}
    <div>
     <h1 id='title1'>Global Covid19 Information</h1>
     <div id='box2'>
