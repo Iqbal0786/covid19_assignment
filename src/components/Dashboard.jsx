@@ -36,10 +36,15 @@ export default function Dashboard() {
 
    <div>
     <h1 id='title1'>Global Covid19 Information</h1>
+    <div id='box2'>
+     <div> Total Active Case : {data.Global?.TotalConfirmed}</div>
+     <div> Total Recovered : {data.Global?.TotalRecovered}</div>
+     <div> Total Deceased : {data.Global?.TotalDeaths}</div>
+   </div>
    <div id='box2'>
-     <div>Total Active Case : {data.Global?.TotalConfirmed}</div>
-     <div>Total Recovered Case : {data.Global?.TotalRecovered}</div>
-     <div>Total Deceased Case : {data.Global?.TotalDeaths}</div>
+     <div> New Active Case : {data.Global?.NewConfirmed}</div>
+     <div>  New Recovered : {data.Global?.NewRecovered}</div>
+     <div>  New Deceased : {data.Global?.NewDeaths}</div>
    </div>
    </div>
 
@@ -48,9 +53,9 @@ export default function Dashboard() {
           height={400}
           data={[data.Global]}
           margin={{
-            top: 20,
+            top: 50,
             right: 30,
-            left: 50,
+            left: 100,
             bottom: 5,
           }}
         >
@@ -59,9 +64,9 @@ export default function Dashboard() {
           <YAxis />
           <Tooltip />
           <Legend />
-          <Bar dataKey="TotalConfirmed" stackId="a" fill="#8884d8" />
-          <Bar dataKey="TotalRecovered" stackId="b" fill="#82ca9d" />
-          <Bar dataKey="TotalDeaths" stackId="b" fill="#d8df05" />
+          <Bar dataKey="NewConfirmed" stackId="a" fill="#8884d8" />
+          <Bar dataKey="NewRecovered" stackId="b" fill="#82ca9d" />
+          <Bar dataKey="NewDeaths" stackId="c" fill="#d8df05" />
         </BarChart>
   </>
   )
