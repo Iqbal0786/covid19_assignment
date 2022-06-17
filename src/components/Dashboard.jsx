@@ -7,9 +7,7 @@ import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Resp
 
 export default function Dashboard() {
     const [data,setData]=useState({})
-    const d = new Date("2015-03-25T12:00:00Z");
-    const months=["Jan","Feb","Mar","Apr","May","June","July","Sep","Aug","Oct","Nov","Dec"]
-    console.log(months[new Date("2015-03-25T12:00:00Z").getMonth()])
+
     useEffect(()=>{
          axios.get("https://api.covid19api.com/summary ").then((res)=>{
             setData({...data, ...res.data})
@@ -18,6 +16,10 @@ export default function Dashboard() {
          })
     },[])
    console.log(data);
+  const formatXAxis = (tickItem) => {
+       return new Date(tickItem).toLocaleDateString()
+  }
+  
   return (
   <>
    <div id='navbar'>
@@ -42,9 +44,9 @@ export default function Dashboard() {
    </div>
 
    <BarChart
-          width={500}
-          height={300}
-          data={data.Countries}
+          width={1000}
+          height={400}
+          data={[data.Global]}
           margin={{
             top: 20,
             right: 30,
@@ -52,8 +54,8 @@ export default function Dashboard() {
             bottom: 5,
           }}
         >
-          <CartesianGrid strokeDasharray="6 6" />
-          <XAxis dataKey="Date" />
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="Date"  tickFormatter={formatXAxis}/>
           <YAxis />
           <Tooltip />
           <Legend />
