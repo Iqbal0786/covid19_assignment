@@ -68,6 +68,35 @@ export default function Dashboard() {
           <Bar dataKey="NewRecovered" stackId="b" fill="#82ca9d" />
           <Bar dataKey="NewDeaths" stackId="c" fill="#d8df05" />
         </BarChart>
+
+        <div id='tableBox'>
+          <h1>Country wise recods</h1>
+          <table>
+            <tr>
+                <th>Name</th>
+                <th>Confirmed</th>
+                <th>Recovered</th>
+                <th>Deceased</th>
+            
+            </tr>
+              {
+                data.Countries? data.Countries.map((el)=>{
+                  return <>
+                  <tr key={el.ID}>
+                <td>{el.Country}</td>
+                <td>{el.TotalConfirmed}</td>
+                <td>{el.TotalRecovered}</td>
+                <td>{el.TotalDeaths}</td>
+              </tr>
+                  </>
+                })
+                :""
+              }
+             
+          
+          </table>
+
+        </div>
   </>
   )
 }
