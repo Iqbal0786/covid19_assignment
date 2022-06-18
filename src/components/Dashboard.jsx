@@ -13,6 +13,9 @@ export default function Dashboard() {
     const [name,setName]=useState("")
     const [found,setfound]=useState(true)
     const[searched,setSearched]=useState([])
+    // if(name==""){
+    //   fetchData()
+    // }
 
     useEffect(()=>{
          fetchData()
@@ -59,7 +62,7 @@ export default function Dashboard() {
         <h5>Covid19 tracker</h5>
       </div>
       <div id='rightnav'>
-        <input type="text"  placeholder='type something...' onChange={(e)=>{
+        <input type="text"  placeholder='search by country name ' onChange={(e)=>{
             //  let temp= [...data.Countries]
             //  let filtered= temp.filter((el)=>el.Country==e.target.value)
             //  setData([...filtered])
