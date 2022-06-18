@@ -25,7 +25,7 @@ export const loginSuccessData = (data,navigate ) => (dispatch) => {
     axios.post("https://covid19db1.herokuapp.com/login", data).then(({ data }) => {
         dispatch(loginSuccess(data))
         console.log(data)
-      
+        alert("successfully logged in")
         setTimeout(() => { navigate("/"); }, 3000)
     }).catch((err) => {
         dispatch(loginError())

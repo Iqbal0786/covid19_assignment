@@ -16,7 +16,7 @@ export const RegisterHandler=(data,navigate)=>(dispatch)=>{
       if (res) {
           dispatch(register_success(res.data))
             alert("sucessfully registered ")
-        setTimeout(()=>{navigate("/Login")},3000)
+        setTimeout(()=>{navigate("/login")},3000)
       }
     })
     .catch((error) => {

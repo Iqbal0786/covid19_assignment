@@ -3,9 +3,12 @@ import React, { useEffect } from 'react'
 import { useState } from 'react'
 import "../styles/dashboard.css"
 import { BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
-
+import {useSelector} from "react-redux"
+import Login from './Login';
 
 export default function Dashboard() {
+     const {token} = useSelector((store)=>store.logInData)
+     console.log(token)
     const [data,setData]=useState({})
     const [name,setName]=useState("")
     const [found,setfound]=useState(true)
@@ -50,7 +53,8 @@ export default function Dashboard() {
   // console.log(data.Countries)
   return (
   <>
-   <div id='navbar'>
+  {token?<>
+    <div id='navbar'>
       <div id='leftnav'>
         <h5>Covid19 tracker</h5>
       </div>
@@ -130,6 +134,7 @@ export default function Dashboard() {
           </table>
 
         </div>
+    </>:<Login/>}
   </>
   )
 }
