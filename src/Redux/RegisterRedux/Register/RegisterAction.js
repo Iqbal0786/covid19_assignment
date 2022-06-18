@@ -7,20 +7,20 @@ export const register_loading=()=>({type:REGISTER_LOADING});
 export const register_error=()=>({type:REGISTER_ERROR});
 export const register_success=(payload)=>({type:REGISTER_SUCCESS , payload});
 
-export const RegisterHandler=(data,notify,notify2,navigate)=>(dispatch)=>{
+export const RegisterHandler=(data,navigate)=>(dispatch)=>{
 
           dispatch(register_loading())
     axios
-    .post("http://localhost:9999/register", data)
+    .post("https://covid19db1.herokuapp.com/register", data)
     .then((res) => {
       if (res) {
           dispatch(register_success(res.data))
-        notify();
+            alert("sucessfully registered ")
         setTimeout(()=>{navigate("/Login")},3000)
       }
     })
     .catch((error) => {
-      notify2();
+      alert("please check your email or password")
       dispatch(register_error())
     });         
 }

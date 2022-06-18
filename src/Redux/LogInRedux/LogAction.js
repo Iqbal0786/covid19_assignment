@@ -19,20 +19,16 @@ export const loginSuccess = (payload) => ({ type: LOGIN_SUCCESS, payload });
 
 export const logoutUser = () => ({ type: LOGOUT})
 
-export const loginSuccessData = (data,toast ,navigate ) => (dispatch) => {
+export const loginSuccessData = (data,navigate ) => (dispatch) => {
 
     dispatch(loginLoding());
-    axios.post("http://localhost:9999/login", data).then(({ data }) => {
+    axios.post("https://covid19db1.herokuapp.com/login", data).then(({ data }) => {
         dispatch(loginSuccess(data))
         console.log(data)
-        toast.success("Logged in Successfully", {
-            position: "top-center",
-        });
+      
         setTimeout(() => { navigate("/"); }, 3000)
     }).catch((err) => {
         dispatch(loginError())
-        toast.error("Please check your email or password", {
-            position: "top-center",
-        });
+       alert("please check your email or password")
     });
 }
