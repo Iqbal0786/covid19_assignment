@@ -15,8 +15,9 @@ export default function Dashboard() {
          fetchData()
     },[])
     const fetchData=()=>{
-      axios.get("https://api.covid19api.com/summary ").then((res)=>{
-            setData({...data, ...res.data})
+      axios.get("https://covid19db1.herokuapp.com/covids").then((res)=>{
+        console.log(res.data);
+            setData({...data, ...res.data[0]})
          }).catch((err)=>{
             console.log(err.message);
          })
@@ -24,6 +25,9 @@ export default function Dashboard() {
     let mapdata=data.Countries
     if(searched.length){
          mapdata=searched
+    }
+    else{
+     // fetchData()
     }
   const formatXAxis = (tickItem) => {
        return new Date(tickItem).toLocaleDateString()
@@ -37,9 +41,10 @@ export default function Dashboard() {
        
        }
        else{
-        setfound(false)
-        fetchData()
+    
+         setfound(false)
        }
+       
   
   }
   // console.log(data.Countries)
